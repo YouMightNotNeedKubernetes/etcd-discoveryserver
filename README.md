@@ -43,7 +43,7 @@ You can run your own etcd discovery service using the `etcd-discoveryserver` ima
 The image is available on [Docker Hub](https://hub.docker.com/r/youmightnotneedkubernetes/etcd-discoveryserver)
 
 ```sh
-$ docker pull youmightnotneedkubernetes/etcd-discoveryserver
+$ docker pull youmightnotneedkubernetes/etcd-discoveryserver:main
 ```
 
 ### Configuration
