@@ -6,10 +6,10 @@ target "default" {
         "etcd-discoveryserver:latest",
         "ghcr.io/youmightnotneedkubernetes/etcd-discoveryserver:latest",
     ]
-    platforms = [
-        "linux/amd64",
-        "linux/arm64",
-    ]
+    // platforms = [
+    //     "linux/amd64",
+    //     "linux/arm64",
+    // ]
 }
 
 target "discoveryserver" {
