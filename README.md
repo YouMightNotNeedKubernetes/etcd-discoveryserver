@@ -36,11 +36,9 @@ ETCD_DISCOVERY=https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573d
 
 Now we start etcd with those relevant flags for each member. This will cause each member to register itself with the discovery service and begin the cluster once all members have been registered.
 
-## Running a self-hosted discovery service
+## Getting started
 
-> WIP
-
-### Image
+You can run your own etcd discovery service using the `etcd-discoveryserver` image.
 
 The image is available on [Docker Hub](https://hub.docker.com/r/youmightnotneedkubernetes/etcd-discoveryserver)
 
@@ -54,6 +52,7 @@ The service has three configuration options, and can be configured with either r
 - `--addr` / `DISC_ADDR`: the address to run the service on, including port.
 - `--host` / `DISC_HOST`: the host url to prepend to `/new` requests.
 - `--etcd` / `DISC_ETCD`: the url of the etcd endpoint backing the instance.
+- `--minage` / `DISC_MINAGE`: min age of a token for garbage collection.
 
 ## History
 This package implements a super minimal etcd v2 API built on the currently incomplete [v2v3 package]. We need to do this because the public etcd discovery service has been running on the inefficient v2 storage engine and causing operational burden.
