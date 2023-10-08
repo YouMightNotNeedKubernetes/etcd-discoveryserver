@@ -1,0 +1,27 @@
+services:
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.9
+    environment:
+      ETCD_DATA_DIR: /var/lib/etcd
+      ETCD_NAME: node1
+      ETCD_INITIAL_ADVERTISE_PEER_URLS: http://etcd:2380
+      ETCD_LISTEN_PEER_URLS: http://0.0.0.0:2380
+      ETCD_ADVERTISE_CLIENT_URLS: http://etcd:2379
+      ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
+      ETCD_INITIAL_CLUSTER: node1=http://etcd:2380
+    networks:
+      - discoveryserver
+
+  discoveryserver:
+    image: discoveryserver:latest
+    environment:
+      DISC_ETCD: ${DISC_ETCD:-http://etcd:2379}
+      DISC_HOST: ${DISC_HOST:-http://localhost:8087}
+      DISC_MINAGE: ${DISC_MINAGE:-12h}
+    ports:
+      - 8087:8087
+    networks:
+      - discoveryserver
+
+networks:
+  discoveryserver:
