@@ -38,7 +38,7 @@ Now we start etcd with those relevant flags for each member. This will cause eac
 
 ## Getting started
 
-You can run your own etcd discovery service using the `etcd-discoveryserver` image.
+You can run your own etcd discovery service using the `etcd-discoveryserver` image. Sadly there is not official image for this service, so we have to build it ourselves.
 
 The image is available on [Docker Hub](https://hub.docker.com/r/youmightnotneedkubernetes/etcd-discoveryserver)
 
