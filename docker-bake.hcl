@@ -1,5 +1,10 @@
 target "docker-metadata-action" {}
 
+target "discoveryserver" {
+    context = "https://github.com/etcd-io/discoveryserver.git#master"
+    dockerfile = "Dockerfile"
+}
+
 target "default" {
     inherits = ["docker-metadata-action"]
 
@@ -13,7 +18,12 @@ target "default" {
     ]
 }
 
-target "discoveryserver" {
-    context = "https://github.com/etcd-io/discoveryserver.git#master"
-    dockerfile = "Dockerfile"
+target "dev" {
+    contexts = {
+        discoveryserver = "target:discoveryserver"
+    }
+
+    tags = [
+        "youmightnotneedkubernetes/etcd-discoveryserver:main"
+    ]
 }
