@@ -35,7 +35,6 @@ jobs:
         with:
           images: |
             ${{ env.DOCKER_IMAGES }}
-            ghcr.io/${{ env.DOCKER_IMAGES }}
           tags: |
             type=ref,event=branch
 
@@ -45,14 +44,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Login to GitHub Container Registry
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
         uses: docker/bake-action@v3
