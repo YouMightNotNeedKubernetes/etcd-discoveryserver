@@ -3,7 +3,44 @@ A self-hosted etcd Discovery Service
 
 Source: https://github.com/etcd-io/discoveryserver
 
-## Configuration
+## Discovery service protocol
+
+Discover other etcd members in a cluster bootstrap phase
+
+Discovery service protocol helps new etcd member to discover all other members in cluster bootstrap phase using a shared discovery URL.
+
+Discovery service protocol is only used in cluster bootstrap phase, and cannot be used for runtime reconfiguration or cluster monitoring.
+
+The protocol uses a new discovery token to bootstrap one unique etcd cluster. Remember that one discovery token can represent only one etcd cluster. As long as discovery protocol on this token starts, even if it fails halfway, it must not be used to bootstrap another etcd cluster.
+
+### Creating a new discovery token
+
+To create a private discovery URL using the “new” endpoint, use the command:
+
+```sh
+$ curl https://discovery.etcd.io/new?size=3
+# https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
+```
+
+This will create the cluster with an initial size of 3 members. If no size is specified, a default of 3 is used.
+
+```
+ETCD_DISCOVERY=https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
+```
+
+```
+--discovery https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
+```
+
+> Each member must have a different name flag specified or else discovery will fail due to duplicated names. Hostname or machine-id can be a good choice.
+
+Now we start etcd with those relevant flags for each member. This will cause each member to register itself with the discovery service and begin the cluster once all members have been registered.
+
+## Running a self-hosted discovery service
+
+> WIP
+
+### Configuration
 The service has three configuration options, and can be configured with either runtime arguments or environment variables.
 
 - `--addr` / `DISC_ADDR`: the address to run the service on, including port.
