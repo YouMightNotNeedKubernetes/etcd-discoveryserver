@@ -40,6 +40,14 @@ Now we start etcd with those relevant flags for each member. This will cause eac
 
 > WIP
 
+### Image
+
+The image is available on [Docker Hub](https://hub.docker.com/r/youmightnotneedkubernetes/etcd-discoveryserver)
+
+```sh
+$ docker pull youmightnotneedkubernetes/etcd-discoveryserver
+```
+
 ### Configuration
 The service has three configuration options, and can be configured with either runtime arguments or environment variables.
 
