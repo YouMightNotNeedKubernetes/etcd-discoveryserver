@@ -13,7 +13,7 @@ services:
       - discoveryserver
 
   discoveryserver:
-    image: youmightnotneedkubernetes/etcd-discoveryserver:main
+    image: ymnnk8s/etcd-discoveryserver:main
     environment:
       DISC_ETCD: ${DISC_ETCD:-http://etcd:2379}
       DISC_HOST: ${DISC_HOST:-http://localhost:8087}
