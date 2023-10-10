@@ -1,4 +1,4 @@
-name: build
+name: youmightnotneedkubernetes
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,19 +33,11 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Login to DockerHub (${{ vars.YMNNK8S_DOCKERHUB_USERNAME }})
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.YMNNK8S_DOCKERHUB_USERNAME }}
-          password: ${{ secrets.YMNNK8S_DOCKERHUB_TOKEN }}
-
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: |
-            ymnnk8s/etcd-discoveryserver
             youmightnotneedkubernetes/etcd-discoveryserver
           tags: |
             type=ref,event=branch
